@@ -2,6 +2,7 @@ import hashlib
 from pathlib import Path
 import sqlite3
 import os
+from config import load_config
 
 def file_to_md5(path:str) -> str:
     md5 = hashlib.md5()
@@ -24,7 +25,8 @@ def find_osu_files(songs_folder: Path) -> list[str]:
     return osu_files
 
 def create_db(folder:Path):
-    con = sqlite3.connect("hashes.db")
+    cfg = load_config()
+    con = sqlite3.connect(cfg.db_path)
     con.execute("CREATE TABLE if NOT EXISTS maps(hash TEXT PRIMARY KEY, path TEXT NOT NULL, mtime REAL NOT NULL)")
 
     maps = []
@@ -38,10 +40,6 @@ def create_db(folder:Path):
     con.commit()
     con.close()
 
-
-
-folder = Path() ## path for songs
-create_db(folder)
 
 
 

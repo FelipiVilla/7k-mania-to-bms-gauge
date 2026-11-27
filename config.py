@@ -22,5 +22,5 @@ def load_config() -> AppConfig:
         osu_dir=osu_dir,
         replays_dir=osu_dir / "Replays",
         songs_dir=osu_dir / "Songs",
-        db_path=Path("osu_bms.db"),
+        db_path=Path(__file__).parent / "hashes.db",
     )
